@@ -14,7 +14,7 @@ student_id: "032953828"
 # ward flag to paste. The lines below are for your own record: ward II and
 # ward IV recover a CECS378 flag; ward I and ward III proofs are a duplicated
 # block and a forged token, not flags.
-honor: CECS378{honor_9b5dd5d084701688882af07c}
+honor: CECS378{honor_8b40653e01e9aa58935a31d7}
 ward2: CECS378{ward2_f72dca9896c9358c632ff698}
 ward4: CECS378{ward4_...}   # OMEGA WARD (Ω stretch)
 ---
@@ -36,7 +36,9 @@ won't sign their work doesn't get paid.
 ## Ward I — The Wisp (ECB detection)
 
 - **How I made the pattern flicker:**
+I first checked that the ciphertext was made into proper blocks, once i did that I used list comprehension to check if any block repeated more than once and get the block that repeated
 - **The real-world sin this is (name the CVE class):**
+The CVE class that this vulnerability is is CWE-329, it is about predictable IVs found in the repeated blocks of this vulnerability.
 
 ## Ward II — The Rune Golem (ECB byte-at-a-time)
 
@@ -45,6 +47,7 @@ I messured the block size by adding different amounts of characters to the prefi
 - **How prying one rune at a time recovers the whole word:**
 By prying one rune at a time, i could slowly get all of the parts of the rune, i just need the prefix to stay the same and the recovered bytes/letters to be checked with that prefix value, checking it between them showed me one at a time and slowly recovered all of the word, building off of the last letter, though it would be easier if i wrote them in letters instead of bytes
 - **Where this same flaw bites real systems:**
+This same flaw can bite real systems by revealing the secret key used to encrypt their system, allowing others to hack into the system using that same key to get past their encryption, even if getting that key can take some time.
 
 ## Ward III — The Mirror Knight (CBC bit-flipping)
 
