@@ -52,8 +52,11 @@ This same flaw can bite real systems by revealing the secret key used to encrypt
 ## Ward III — The Mirror Knight (CBC bit-flipping)
 
 - **Which ciphertext byte(s) I flipped, and what each plaintext byte became:**
+I flipped the ciphertext from block 2, and then making the plaintext byte be ";admin=true;AAA" with the A's being added at the end so the block size remainds the same.
 - **Why CBC let me forge a sigil the ward couldn't question:**
+CBC let me forge a sigil that the ward couldn't question because it considers that ciphertext secure, the sigil was already authenticated and sent, by doing the CBC bit flip, it changes that already authenticated data and changes it slightly, using that change and the fact that it is already authenticated, the ward couldn't question it
 - **Where this same flaw bites real systems:**
+This flaw bites real systems when someone is able to intercept a message and be able to change the contents of that message, allowing them to do things like change admin access, where files are going, etc. that they shouldn't be able to normally.
 
 ## Ward IV — OMEGA WARD (CBC padding oracle)  *(optional Ω stretch)*
 
@@ -66,5 +69,5 @@ This same flaw can bite real systems by revealing the secret key used to encrypt
   secrets, and why does their one-wayness keep those proofs unforgeable?**
 
 ## Sources
-
+https://crypto.stackexchange.com/questions/66085/bit-flipping-attack-on-cbc-mode
 -
