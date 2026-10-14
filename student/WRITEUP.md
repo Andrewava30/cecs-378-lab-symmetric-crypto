@@ -15,7 +15,7 @@ student_id: "032953828"
 # ward IV recover a CECS378 flag; ward I and ward III proofs are a duplicated
 # block and a forged token, not flags.
 honor: CECS378{honor_8b40653e01e9aa58935a31d7}
-ward2: CECS378{ward2_f72dca9896c9358c632ff698}
+ward2: CECS378{ward2_4347449cae0f3a81009e532f}
 ward4: CECS378{ward4_...}   # OMEGA WARD (Ω stretch)
 ---
 
@@ -36,18 +36,18 @@ won't sign their work doesn't get paid.
 ## Ward I — The Wisp (ECB detection)
 
 - **How I made the pattern flicker:**
-I first checked that the ciphertext was made into proper blocks, once i did that I used list comprehension to check if any block repeated more than once and get the block that repeated
+I first checked that the ciphertext was made into proper blocks, once i did that I used list comprehension to check if any block repeated more than once and get the block that repeated, leaking the specific reoccuring block
 - **The real-world sin this is (name the CVE class):**
 The CVE class that this vulnerability is is CWE-329, it is about predictable IVs found in the repeated blocks of this vulnerability.
 
 ## Ward II — The Rune Golem (ECB byte-at-a-time)
 
 - **The block size I measured, and how I measured it:**
-I messured the block size by adding different amounts of characters to the prefix and then seperating the bytes from the ward into 16 byte blocks, when a new block was added then I knew where the block size was
+I messured the block size by adding different amounts of characters to the prefix and then seperating the bytes from the ward into 16 byte blocks, when a new block was added then I knew where the block size was and could use that to iterate over it and see if a block got encrypted the same as the base message, using that to find when it is the same to find the key
 - **How prying one rune at a time recovers the whole word:**
-By prying one rune at a time, i could slowly get all of the parts of the rune, i just need the prefix to stay the same and the recovered bytes/letters to be checked with that prefix value, checking it between them showed me one at a time and slowly recovered all of the word, building off of the last letter, though it would be easier if i wrote them in letters instead of bytes
+By prying one rune at a time, i could slowly get all of the parts of the rune, i just need the prefix to stay the same and the recovered bytes/letters to be checked with that prefix value, checking it between them showed me one at a time and slowly recovered all of the word, building off of the last letter to reveal the key, though it would be easier if i wrote them in letters instead of bytes
 - **Where this same flaw bites real systems:**
-This same flaw can bite real systems by revealing the secret key used to encrypt their system, allowing others to hack into the system using that same key to get past their encryption, even if getting that key can take some time.
+This same flaw can bite real systems by revealing the secret key used to encrypt their system when they can freely control their input, allowing others to hack into the system using that same key to get past their encryption, even if getting that key can take some time.
 
 ## Ward III — The Mirror Knight (CBC bit-flipping)
 
@@ -69,5 +69,6 @@ This flaw bites real systems when someone is able to intercept a message and be 
   secrets, and why does their one-wayness keep those proofs unforgeable?**
 
 ## Sources
+https://cwe.mitre.org/data/definitions/329.html
 https://crypto.stackexchange.com/questions/66085/bit-flipping-attack-on-cbc-mode
 -
